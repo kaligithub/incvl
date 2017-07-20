@@ -20,6 +20,22 @@
  *                   If left blank, it is randomly generated.
  */
 function JWPlayerUpload( link, resumableSession, redirect, id ){
+	alert('hiiiiiiiiii');
+	/*$.ajax( {
+			type:'GET',
+			url:'/plugins/include/video_upload_ajax.php',
+			data:'{}',
+			dataType:'json',
+			success:function( data ){
+				
+			},
+			error:function( request, message, error ){
+				alert(message);
+				alert(error);
+			}
+	} );*/
+} 
+function JWPlayerUpload2( link, resumableSession, redirect, id ){
 	// Whether we are in resumable mode
 	this._resumable = ! ! resumableSession;
 
@@ -30,7 +46,7 @@ function JWPlayerUpload( link, resumableSession, redirect, id ){
 	}
 
 	this._redirect = redirect;
-
+    alert('HI')
 	// Build the URL
 	this._url = '//' + link.address + link.path
 	+ '?api_format=json&key=' + link.query.key;

@@ -54,11 +54,13 @@ function jwplayer_admin_enqueue_scripts( $hook_suffix ) {
 	$ajaxupload_url = plugins_url( '../static/js/upload.js', __FILE__ );
 	$style_url = plugins_url( '../static/css/style.css', __FILE__ );
 	$logic_url = plugins_url( '../static/js/logic.js', __FILE__ );
+	$ajaxjs_url = plugins_url( '../static/js/ajax.js', __FILE__ );
 
 	wp_register_style( 'jwplayer_wp_admin_css', $style_url, false, JWPLAYER_PLUGIN_VERSION );
 	wp_enqueue_style( 'jwplayer_wp_admin_css' );
 	wp_enqueue_script( 'jquery-ui-draggable' );
 	wp_enqueue_script( 'ajaxupload_script', $ajaxupload_url );
 	wp_enqueue_script( 'logic_script', $logic_url );
+	wp_enqueue_script( 'videoajax_script', $ajaxjs_url );
 }
 

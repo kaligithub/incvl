@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: JW Player Plugin
-Plugin URI: http://www.jwplayer.com/
-Description: This plugin allows you to easily upload and embed videos using the JW Player. The embedded video links can be signed, making it harder for viewers to steal your content.
-Author: JW Player
-Version: 1.6.0
+Plugin Name: ViewLift Player Plugin
+Plugin URI: http://www.viewlift.com/
+Description: This plugin allows you to easily upload and embed videos using the ViewLift Player. The embedded video links can be signed, making it harder for viewers to steal your content.
+Author: ViewLift Player
+Version: 2.0.0
 */
 
 define( 'JWPLAYER_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -137,4 +137,10 @@ if ( get_option( 'jwplayer_custom_shortcode_parser' ) ) {
 if  ( ! defined( 'WPCOM_IS_VIP_ENV' ) ) {
 	require_once( JWPLAYER_PLUGIN_DIR . '/include/import.php' );
 	add_action( 'admin_menu', 'jwplayer_import_check_and_init' );
+}
+
+//add video upload ajax
+add_action( 'wp_enqueue_scripts', 'my_custom_script_load' );
+function my_custom_script_load(){
+  wp_enqueue_script( 'my-custom-script', plugin_dir_url( __FILE__ ) . '/static/js/ajax', array( 'jquery' ) );
 }

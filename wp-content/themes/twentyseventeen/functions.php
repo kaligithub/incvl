@@ -541,6 +541,15 @@ function twentyseventeen_front_page_template( $template ) {
 }
 add_filter( 'frontpage_template',  'twentyseventeen_front_page_template' );
 
+
+/**
+* upload video on viewlift s3 server
+*/
+function upload_viewliftS3server(){
+	print_r($_FILES);
+}
+add_action('wp_ajax_vlvideoupload','upload_viewliftS3server');
+
 /**
  * Implement the Custom Header feature.
  */

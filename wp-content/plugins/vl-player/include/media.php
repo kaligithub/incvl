@@ -198,14 +198,13 @@ function jwplayer_media_widget_body() {
 			<ul id="jwplayer-video-list" class="jwplayer-loading"></ul>
 		</div>
 		<div class="jwplayer-tab jwplayer-off" id="jwplayer-tab-add">
-			<p>
-				Which type of content would you like to add?
-			</p>
-			<div>
-				<a class="jwplayer-button button-primary" id="jwplayer-button-upload">upload</a>
-				<span>or</span>
-				<a class="jwplayer-button button-primary" id="jwplayer-button-url">url</a>
-			</div>
+			<form id="uploadForm" name="vluploadForm" action="" method="post"
+			 enctype="multipart/form-data">
+				<div id="targetLayer">Upload Video</div>
+				<div id="uploadFormLayer">
+				<input id="vl_videofile" name="vl_videofile" type="file" class="vl_videofile" /><br/>
+				<input type="button" id="vluploadbtn" name="vluploadbtn" value="Upload" class="btnSubmit" />
+			</form>
 		</div>
 	</div>
 	<?php
