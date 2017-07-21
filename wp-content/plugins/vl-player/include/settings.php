@@ -1,10 +1,13 @@
 <?php
 
 
-// Add the JW Player settings to the media page in the admin panel
+// Add the ViewLift Player settings to the media page in the admin panel
 function jwplayer_settings_init() {
-	add_options_page( 'JW Player Plugin Settings', 'JW Player', 'manage_options', 'jwplayer_settings', 'jwplayer_settings_page' );
+	add_options_page( 'ViewLift Player Plugin Settings', 'ViewLift Player', 'manage_options', 'jwplayer_settings', 'jwplayer_settings_page' );
+	add_options_page ('ViewLift Settings', 'ViewLift Settings', 'manage_options', 'jwplayer_setval', 'jwplayer_setval_page');
 	add_settings_section( 'jwplayer_setting_basic_section', null, '__return_true', 'jwplayer_settings' );
+
+
 
 	if ( get_option( 'jwplayer_api_key' ) ) {
 		add_settings_field( 'jwplayer_logout_link', 'Authorization', 'jwplayer_setting_logout_link', 'jwplayer_settings', 'jwplayer_setting_basic_section' );
@@ -46,9 +49,20 @@ function jwplayer_settings_init() {
 	// Legacy redirect
 	$botr_active = is_plugin_active( 'bits-on-the-run/bitsontherun.php' );
 	if ( $botr_active || get_option( 'jwplayer_import_done' ) ) {
-		add_settings_section( 'jwplayer_setting_media_section', 'JW Player Plugin', '__return_true', 'media' );
-		add_settings_field( 'jwplayer_setting_media', 'JW Player Plugin Settings', 'jwplayer_setting_media_redirect', 'media', 'jwplayer_setting_media_section' );
+		add_settings_section( 'jwplayer_setting_media_section', 'ViewLift Player Plugin', '__return_true', 'media' );
+		add_settings_field( 'jwplayer_setting_media', 'ViewLift Player Plugin Settings', 'jwplayer_setting_media_redirect', 'media', 'jwplayer_setting_media_section' );
 	}
+
+	//add fields for new setting page
+	add_settings_field( 'jwplayer_api_key', 'AWS API Key', 'jwplayer_setting_basic_section', 'jwplayer_setval', 'jwplayer_setting_basic_section' );
+
+	add_settings_field( 'jwplayer_api_secret', 'AWS API Secret', 'jwplayer_setting_basic_section', 'jwplayer_setval', 'jwplayer_setting_basic_section' );
+
+	add_settings_field( 'jwplayer_player', 'Default player', 'jwplayer_setting_player', 'jwplayer_settings', 'jwplayer_setting_basic_section' );
+
+	register_setting( 'jwplayer_setval', 'jwplayer_api_key', 'jwplayer_validate_content_mask' );
+	register_setting( 'jwplayer_setval', 'jwplayer_api_secret', 'jwplayer_validate_content_mask' );
+	register_setting( 'jwplayer_settings', 'jwplayer_player', 'jwplayer_validate_content_mask' );
 }
 
 function jwplayer_settings_page() {
@@ -56,7 +70,7 @@ function jwplayer_settings_page() {
 		return null;
 	}
 	echo '<div class="wrap">';
-	echo '<h2>JW Player Plugin Settings</h2>';
+	echo '<h2>ViewLift Player Plugin Settings</h2>';
 	echo '<form method="post" action="options.php">';
 	settings_fields( 'jwplayer_settings' );
 	do_settings_sections( 'jwplayer_settings' );
@@ -104,7 +118,7 @@ function jwplayer_setting_content_mask() {
 	echo '<input name="jwplayer_content_mask" id="jwplayer_content_mask" type="text" value="' . esc_attr( $content_mask ) . '" class="regular-text" />';
 	echo '<p class="description">';
 	echo 'The <a href="' . esc_url( 'http://support.jwplayer.com/customer/portal/articles/1433702-dns-masking-the-jw-platform' ) . '">DNS mask</a> of the content server.<br />';
-	echo '<strong>Note:</strong>	 https embeds will not work with a content mask.';
+	echo '<strong>Note:</strong>https embeds will not work with a content mask.';
 	echo '</p>';
 }
 
@@ -136,10 +150,8 @@ function jwplayer_setting_player() {
 
 		echo '
 			<p class="description">
-				Embedded videos will use this player if no other is specified. To edit
-				this player,
-				<a href="' . esc_url( JWPLAYER_DASHBOARD . '#/players/list' ) . '">go
-				to your JW Player dashboard</a>.<br />
+				Embedded videos will use this player if no other is specified.
+				<br />
 				To override this selection, add a dash and the corresponding player
 				key to the video key in the shortcode.<br />
 				For example: <code>[jwplayer MdkflPz7-35rdi1pO]</code>
@@ -161,15 +173,15 @@ function jwplayer_setting_show_widget() {
 	echo '<p class="description"><strong>Note:</strong> The widget is always accessible from the <em>Add media</em> window.</p>';
 }
 
-// The settings which determines if external media is imported into the JW Player account or left as is.
+// The settings which determines if external media is imported into the ViewLift Player account or left as is.
 function jwplayer_setting_enable_sync() {
 	$enable_sync = get_option( 'jwplayer_enable_sync', JWPLAYER_ENABLE_SYNC );
 	echo '<input name="jwplayer_enable_sync" id="jwplayer_enable_sync" type="checkbox" ';
 	checked( true, $enable_sync );
 	echo ' value="1" /> ';
-	echo '<label for="jwplayer_enable_sync">Sync media to JW Player</label>';
-	echo '<p class="description">Enabling this setting will make it possible to sync your local media files to your JW Player account.</p>';
-	echo '<p class="description">For synced media you can manage metadata and see video statistics inside the JW Player dashboard.</p>';
+	echo '<label for="jwplayer_enable_sync">Sync media to ViewLift Player</label>';
+	echo '<p class="description">Enabling this setting will make it possible to sync your local media files to your ViewLift Player account.</p>';
+	echo '<p class="description">For synced media you can manage metadata and see video statistics inside the ViewLift Player dashboard.</p>';
 }
 
 // The setting which determines whether we use the built-in shortcode parser or our own filters.
@@ -191,8 +203,8 @@ function jwplayer_setting_login_link() {
 
 function jwplayer_setting_section_shortcode() {
 	echo '<p>';
-	echo '    You can configure wether you want JW Player to embed in overview pages (home, tags, etc). Depending';
-	echo '    upon your WordPress theme, the JW Player plugin must render the shortcodes from either ';
+	echo '    You can configure wether you want ViewLift Player to embed in overview pages (home, tags, etc). Depending';
+	echo '    upon your WordPress theme, the ViewLift Player plugin must render the shortcodes from either ';
 	echo '    <code>the_excerpt</code> or <code>the_content</code>. The third option is to disable player embeds';
 	echo '    on a specific page type. This will strip out the shortcode.';
 	echo '</p>';
@@ -231,5 +243,22 @@ function jwplayer_setting_custom_shortcode_home() {
 
 function jwplayer_setting_media_redirect() {
 	$redirect_url = get_admin_url( null, 'options-general.php?page=jwplayer_settings' );
-	echo 'JW Player plugin settings have moved. Please <a href="' . esc_url( $redirect_url ) . '" title="Manage JW Player Plugin">go here</a> now.';
+	echo 'ViewLift Player plugin settings have moved. Please <a href="' . esc_url( $redirect_url ) . '" title="Manage ViewLift Player Plugin">go here</a> now.';
 }
+
+function jwplayer_setval_page ()
+{
+    if ( ! current_user_can( 'manage_options' ) ) {
+		return null;
+	}
+	echo '<div class="wrap">';
+	echo '<h2>ViewLift Player Plugin Settings</h2>';
+	echo '<form method="post" action="options.php">';
+	settings_fields( 'jwplayer_setval' );
+	do_settings_sections( 'jwplayer_setval' );
+	submit_button();
+	echo '</form>';
+	echo '</div>';
+}
+
+

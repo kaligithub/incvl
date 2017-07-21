@@ -2,9 +2,9 @@
 
 function jwplayer_login_create_pages() {
 	//adds the login page
-	add_submenu_page( null, 'JW Player Authorization', 'JW Player Authorization', 'manage_options', 'jwplayer_login_page', 'jwplayer_login_page' );
+	add_submenu_page( null, 'ViewLift Player Authorization', 'ViewLift Player Authorization', 'manage_options', 'jwplayer_login_page', 'jwplayer_login_page' );
 	//adds the logout page
-	add_submenu_page( null, 'JW Player Deauthorization', 'JW Player Deauthorization', 'manage_options', 'jwplayer_logout_page', 'jwplayer_login_logout' );
+	add_submenu_page( null, 'ViewLift Player Deauthorization', 'ViewLift Player Deauthorization', 'manage_options', 'jwplayer_logout_page', 'jwplayer_login_logout' );
 }
 
 function jwplayer_login_print_error( $message ) {
@@ -45,10 +45,10 @@ function jwplayer_login_page() {
 	$api_verified = jwplayer_login_verify_api_key_secret( $api_key, $api_secret );
 
 	if ( null === $api_verified ) {
-		$login_error = 'Communications with the JW Player API failed';
+		$login_error = 'Communications with the ViewLift Player API failed';
 		if ( version_compare( PHP_VERSION, JWPLAYER_MINIMUM_PHP_VERSION, '<' ) ) {
 			$login_error .= ', because you are using PHP version ' . esc_html( PHP_VERSION ) . '. ';
-			$login_error .= 'You need at least version ' . esc_html( JWPLAYER_MINIMUM_PHP_VERSION ) . 'to use the JW Player plugin.';
+			$login_error .= 'You need at least version ' . esc_html( JWPLAYER_MINIMUM_PHP_VERSION ) . 'to use the ViewLift Player plugin.';
 		} else {
 			$login_error .= '. Please try again later.';
 		}
@@ -65,10 +65,10 @@ function jwplayer_login_page() {
 		?>
 		<h2>Authorization succesful</h2>
 		<p>
-			You have successfully authorized the plugin to access your JW Player account.
+			You have successfully authorized the plugin to access your ViewLift Player account.
 		</p>
 		<p>
-			You can now update <a href="<?php echo esc_url( $settings_page ); ?>">the settings of the JW Player plugin</a>.
+			You can now update <a href="<?php echo esc_url( $settings_page ); ?>">the settings of the ViewLift Player plugin</a>.
 		</p>
 		<?php
 	}
@@ -82,13 +82,13 @@ function jwplayer_login_form() {
 
 		<form method="post" action="">
 			<p>
-				In order to use the JW Player plugin, you need to authorize the plugin
-				to access the data in your JW Player account. (Don't have a JW Player
-				account yet? <a href="https://www.jwplayer.com/pricing/">Sign up
+				In order to use the ViewLift Player plugin, you need to authorize the plugin
+				to access the data in your ViewLift Player account. (Don't have a ViewLift Player
+				account yet? <a href="http://viewlift.com/">Sign up
 				here</a>).
 			</p>
 			<p>
-				Insert your JW Player API Credentials below. These are located in the
+				Insert your ViewLift Player API Credentials below. These are located in the
 				<strong>Account > Properties > Choose property </strong> section of your dashboard.
 			</p>
 			<table class="form-table">
@@ -161,7 +161,7 @@ function jwplayer_login_logout() {
 	<h2>Deauthorization successful.</h2>
 	<p>
 		You can <a href="<?php echo esc_url( $login_url ); ?>">authorized the plugin with different credentials</a> or
-		disable the JW Player plugin on <a href="<?php echo esc_url( $plugins_url ); ?>">the plugins page</a>.
+		disable the ViewLift Player plugin on <a href="<?php echo esc_url( $plugins_url ); ?>">the plugins page</a>.
 	</p>
 	<?php
 }
@@ -170,10 +170,10 @@ function jwplayer_login_logout() {
 function jwplayer_login_logout_form() {
 	?>
 	<div class="wrap">
-		<h2>JW Player deauthorization</h2>
+		<h2>ViewLift Player deauthorization</h2>
 
 		<form method="post" action="">
-			<p>You can use this page to deauthorize access to your JW Player account.<br>
+			<p>You can use this page to deauthorize access to your ViewLift Player account.<br>
 				Note that, while deauthorized, videos will not be embedded.</p>
 
 			<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( 'jwplayer-logout-nonce' ) ); ?>">

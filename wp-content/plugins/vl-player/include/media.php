@@ -3,7 +3,7 @@
 function jwplayer_media_attachment_fields_to_edit( $form_fields, $media ) {
 	if ( in_array( $media->post_mime_type, json_decode( JWPLAYER_MEDIA_MIME_TYPES ), true ) ) {
 		$form_fields['jwplayer_media_sync'] = array(
-			'label' => 'JW Player',
+			'label' => 'ViewLift Player',
 			'input' => 'html',
 			'html' => jwplayer_media_sync_form_html( $media ),
 		);
@@ -16,19 +16,19 @@ function jwplayer_media_sync_form_html( $media ) {
 	$hash = get_post_meta( $media->ID, 'jwplayer_media_hash', true );
 	$html = '';
 	if ( $hash ) {
-		$html .= "Changes to this media's title and description will be synced to JW Player";
+		$html .= "Changes to this media's title and description will be synced to ViewLift Player";
 		$html .= '<p class="description">';
 		$html .= 'Disabling sync is currently not possible, because it would break your media embeds. ';
 		$html .= '</p>';
 	} else {
 		$html .= "<label for='attachments[$media->ID][jwplayer_media_sync]'>";
 		$html .= "<input type='checkbox' value='sync' name='attachments[$media->ID][jwplayer_media_sync]' />";
-		$html .= '&nbsp;&nbsp;Sync to JW Player';
+		$html .= '&nbsp;&nbsp;Sync to ViewLift Player';
 		$html .= '</label>';
 		$html .= '<p class="description">';
-		$html .= 'Enabling sync to JW Player adds this media file to your JW Player ';
+		$html .= 'Enabling sync to ViewLift Player adds this media file to your ViewLift Player ';
 		$html .= 'library which allows you to get analytics about this media.<br />It ';
-		$html .= 'also syncs changes you make to title and description to JW Player.';
+		$html .= 'also syncs changes you make to title and description to ViewLift Player.';
 		$html .= '</p>';
 	}
 	return $html;
@@ -129,15 +129,15 @@ function jwplayer_media_sync( $hash, $media_id, $mime_type, $title, $description
 	return false;
 }
 
-// Add the JW Player tab to the menu of the "Add media" window
+// Add the ViewLift Player tab to the menu of the "Add media" window
 function jwplayer_media_menu( $tabs ) {
 	if ( get_option( 'jwplayer_api_key' ) ) {
-		$newtab = array( 'jwplayer' => 'JW Player' );
+		$newtab = array( 'jwplayer' => 'ViewLift Player' );
 		return array_merge( $tabs, $newtab );
 	}
 }
 
-// output the contents of the JW Player tab in the "Add media" page
+// output the contents of the ViewLift Player tab in the "Add media" page
 function jwplayer_media_page() {
 	media_upload_header();
 
@@ -185,11 +185,10 @@ function jwplayer_media_widget_body() {
 		</div>
 	</div>
 	<div class="jwplayer-widget-div" id="jwplayer-video-div">
-		<h4>Video</h4>
-		<p id="jwplayer-account-login-link"><span>Choose content from</span> your <a href="<?php echo esc_url( JWPLAYER_DASHBOARD ); ?>" title="open your dashboard">JW Player Account</a>
+		<p id="jwplayer-account-login-link"><span>Choose content from</span> your <a href="<?php echo esc_url( JWPLAYER_DASHBOARD ); ?>" title="open your dashboard">ViewLift Player Account</a>
 		<ul class="jwplayer-tab-select">
-			<li id="jwplayer-tab-select-choose">Choose</li>
-			<li id="jwplayer-tab-select-add" class="jwplayer-off">Add New</li>
+			<li id="jwplayer-tab-select-choose">Choose Video</li>
+			<!--<li id="jwplayer-tab-select-add" class="jwplayer-off">Add New</li>-->
 		</ul>
 		<div class="jwplayer-tab" id="jwplayer-tab-choose">
 			<div class="jwplayer-tab-search">

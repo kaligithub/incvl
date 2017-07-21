@@ -4,7 +4,7 @@
 function jwplayer_admin_show_version_notice() {
 	echo '<div class="error fade">';
 	echo '<p>You are using PHP version <strong>' . esc_html( PHP_VERSION ) . '</strong>. ';
-	echo 'You need at least version <strong>' . esc_html( JWPLAYER_MINIMUM_PHP_VERSION ) . '</strong> to use the JW Player plugin.<p>';
+	echo 'You need at least version <strong>' . esc_html( JWPLAYER_MINIMUM_PHP_VERSION ) . '</strong> to use the ViewLift Player plugin.<p>';
 	echo '</div>';
 }
 
@@ -14,7 +14,7 @@ function jwplayer_admin_show_login_notice() {
 		return;
 	} else {
 		$login_url = get_admin_url( null, 'admin.php?page=jwplayer_login_page' );
-		echo '<div class="error fade"><p><strong>Don\'t forget to <a href="' . esc_url( $login_url ) . '">authorize</a> this plugin to access your JW Player account.</strong></p></div>';
+		echo '<div class="error fade"><p><strong>Don\'t forget to <a href="' . esc_url( $login_url ) . '">authorize</a> this plugin to access your ViewLift Player account.</strong></p></div>';
 	}
 }
 
@@ -54,13 +54,13 @@ function jwplayer_admin_enqueue_scripts( $hook_suffix ) {
 	$ajaxupload_url = plugins_url( '../static/js/upload.js', __FILE__ );
 	$style_url = plugins_url( '../static/css/style.css', __FILE__ );
 	$logic_url = plugins_url( '../static/js/logic.js', __FILE__ );
-	$ajaxjs_url = plugins_url( '../static/js/ajax.js', __FILE__ );
+	
 
 	wp_register_style( 'jwplayer_wp_admin_css', $style_url, false, JWPLAYER_PLUGIN_VERSION );
 	wp_enqueue_style( 'jwplayer_wp_admin_css' );
 	wp_enqueue_script( 'jquery-ui-draggable' );
 	wp_enqueue_script( 'ajaxupload_script', $ajaxupload_url );
 	wp_enqueue_script( 'logic_script', $logic_url );
-	wp_enqueue_script( 'videoajax_script', $ajaxjs_url );
+	
 }
 
