@@ -60,7 +60,7 @@ $jwplayer_source_format_extensions = array(
 define( 'JWPLAYER_SOURCE_FORMAT_EXTENSIONS', wp_json_encode( $jwplayer_source_format_extensions ) );
 
 /*
-FitVids.js is not compatible with the JW Player 6 because it breaks the way the player
+FitVids.js is not compatible with the ViewLift Player 6 because it breaks the way the player
 is embedded in the page. If you enable fitVids, the player will briefly show and
 disappear immediately after. Patching fitVids would be the best solution, but because
 fitVids is included with so many themes and plugins, it would take a lot of time
@@ -94,7 +94,7 @@ if ( defined( 'WPCOM_IS_VIP_ENV' ) && true === WPCOM_IS_VIP_ENV ) {
 	register_activation_hook( __FILE__, 'jwplayer_add_options' );
 }
 
-// Initialize the JW Player Admin
+// Initialize the ViewLift Player Admin
 add_action( 'admin_menu', 'jwplayer_settings_init' );
 if ( get_option( 'jwplayer_api_key' ) ) {
 	add_action( 'admin_head-post.php', 'jwplayer_admin_head' );
@@ -122,7 +122,7 @@ add_action( 'edit_attachment', 'jwplayer_media_edit_attachment' );
 add_action( 'media_upload_jwplayer', 'jwplayer_media_handle' );
 add_action( 'admin_menu', 'jwplayer_media_add_video_box' );
 
-// Initialize the JW Player shortcode.
+// Initialize the ViewLift Player shortcode.
 if ( get_option( 'jwplayer_custom_shortcode_parser' ) ) {
 	add_filter( 'the_content', 'jwplayer_shortcode_content_filter', 11 );
 	add_filter( 'the_excerpt', 'jwplayer_shortcode_excerpt_filter', 11 );
@@ -139,8 +139,3 @@ if  ( ! defined( 'WPCOM_IS_VIP_ENV' ) ) {
 	add_action( 'admin_menu', 'jwplayer_import_check_and_init' );
 }
 
-//add video upload ajax
-add_action( 'wp_enqueue_scripts', 'my_custom_script_load' );
-function my_custom_script_load(){
-  wp_enqueue_script( 'my-custom-script', plugin_dir_url( __FILE__ ) . '/static/js/ajax', array( 'jquery' ) );
-}

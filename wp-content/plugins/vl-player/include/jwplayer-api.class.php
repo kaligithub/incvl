@@ -93,7 +93,7 @@ class JWPlayer_api {
 		}
 
 		if ( is_wp_error( $response ) ) {
-			return 'Error: call to JW Player API failed';
+			return 'Error: call to ViewLift Player API failed';
 		}
 
 		$response = wp_remote_retrieve_body( $response );

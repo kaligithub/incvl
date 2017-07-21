@@ -11,7 +11,7 @@ function jwplayer_import_check_and_init() {
 		$vip_active = false;  // is_plugin_active( '????????' );
 		if ( $nr_of_players || $nr_of_playlists ) {
 			add_action( 'admin_notices', 'jwplayer_import_legacy_notice' );
-			add_submenu_page( null, 'JW Player Legacy Plugin Import', 'JW Player Import', 'manage_options', 'jwplayer_import', 'jwplayer_import_page' );
+			add_submenu_page( null, 'ViewLift Player Legacy Plugin Import', 'ViewLift Player Import', 'manage_options', 'jwplayer_import', 'jwplayer_import_page' );
 			add_settings_section( 'jwplayer_import_section', null, 'jwplayer_import_section_html', 'jwplayer_import' );
 			if ( $nr_of_players ) {
 				add_settings_field( 'jwplayer_import_include_players', 'Import Players', 'jwplayer_import_include_players', 'jwplayer_import', 'jwplayer_import_section' );
@@ -40,9 +40,9 @@ function jwplayer_import_legacy_notice() {
 			<div class="update-nag fade">
 				<p>
 					<strong>Please Note:</strong>
-					We noticed that you were using the old JW Player Plugin.
+					We noticed that you were using the old ViewLift Player Plugin.
 					<a href="' . esc_url( $import_url ) . '">Use this tool</a> to import
-					player settings and playlists into your JW player account, so that
+					player settings and playlists into your ViewLift player account, so that
 					they display correctly.
 				</p>
 			</div>
@@ -70,16 +70,16 @@ function jwplayer_import_disable_notice() {
 		';
 		if ( $botr_active && $jwp_active ) {
 			echo '
-					It looks like you have not deactivated the old JW Player and
+					It looks like you have not deactivated the old ViewLift Player and
 					the old JW Platform plugins yet.
 			';
 		} elseif ( $botr_active ) {
 			echo '
-					It looks like you have not deactivated the old JW Platform plugin yet.
+					It looks like you have not deactivated the old ViewLift Platform plugin yet.
 			';
 		} elseif ( $jwp_active ) {
 			echo '
-					It looks like you have not deactivated the old JW Player plugin yet.
+					It looks like you have not deactivated the old ViewLift Player plugin yet.
 			';
 		}
 		echo '
@@ -97,7 +97,7 @@ function jwplayer_import_page() {
 		return null;
 	}
 	echo '<div class="wrap">';
-	echo '<h2>JW Player Legacy Plugin Import</h2>';
+	echo '<h2>ViewLift Player Legacy Plugin Import</h2>';
 	echo '<form method="post" action="options.php">';
 	settings_fields( 'jwplayer_import' );
 	do_settings_sections( 'jwplayer_import' );
@@ -109,10 +109,10 @@ function jwplayer_import_page() {
 function jwplayer_import_section_html() {
 	echo '
 		<p>
-			This tool will migrate your existing JW Player Playlists and Players from
-			your old JW Player Plugin to your JW Player account, which will allow
-			them to be used by the new JW Player plugin. You will also be able to
-			track analytics for your videos in the JW Player dashboard.
+			This tool will migrate your existing ViewLift Player Playlists and Players from
+			your old ViewLift Player Plugin to your ViewLift Player account, which will allow
+			them to be used by the new ViewLift Player plugin. You will also be able to
+			track analytics for your videos in the ViewLift Player dashboard.
 		</p>
 		<p>
 			If you have many Playlists and Player configurations, we recommend doing
@@ -146,7 +146,7 @@ function jwplayer_import_include_players() {
 	echo '
 		<p class="description">
 			You can always decide to edit or delete these players after the import —
-			they will be in your Players list int he JW Player dashboard, with a
+			they will be in your Players list int he ViewLift Player dashboard, with a
 			"WordPress" name.
 		</p>
 	';
@@ -164,7 +164,7 @@ function jwplayer_import_include_playlists() {
 	// TODO: Have URL to support doc explaining the custom shortcode parser.
 	echo '
 		<p class="description">
-			The media from these playlists will be added to your JW Player account as
+			The media from these playlists will be added to your ViewLift Player account as
 			externally-hosted URL references, and wil be tagged with
 			<strong>wp_media</strong> for easy reference.
 		</p>
